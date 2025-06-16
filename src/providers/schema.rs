@@ -33,13 +33,13 @@ pub fn find_schema_tag(html: &Html, tag: SchemaMetaTag) -> Option<String> {
 #[cfg(test)]
 mod tests {
     use crate::html_from_bytes;
-    use crate::tests::SCHEMA_COMPILANT_HTML;
+    use crate::tests::SCHEMA_COMPLIANT_HTML;
 
     use super::{find_schema_tag, SchemaMetaTag};
 
     #[test]
     fn retrieves_schema_name() {
-        let html = html_from_bytes(SCHEMA_COMPILANT_HTML).unwrap();
+        let html = html_from_bytes(SCHEMA_COMPLIANT_HTML).unwrap();
         let value = find_schema_tag(&html, SchemaMetaTag::Name).unwrap();
 
         assert_eq!(value, "Schema.org tags are awesome");
@@ -47,7 +47,7 @@ mod tests {
 
     #[test]
     fn retrieves_schema_description() {
-        let html = html_from_bytes(SCHEMA_COMPILANT_HTML).unwrap();
+        let html = html_from_bytes(SCHEMA_COMPLIANT_HTML).unwrap();
         let value = find_schema_tag(&html, SchemaMetaTag::Description).unwrap();
 
         assert_eq!(
@@ -58,7 +58,7 @@ mod tests {
 
     #[test]
     fn retrieves_schema_image() {
-        let html = html_from_bytes(SCHEMA_COMPILANT_HTML).unwrap();
+        let html = html_from_bytes(SCHEMA_COMPLIANT_HTML).unwrap();
         let value = find_schema_tag(&html, SchemaMetaTag::Image).unwrap();
 
         assert_eq!(value, "https://www.example.com/image.jpg");

@@ -1,13 +1,17 @@
-use scraper::Html;
 use std::str::FromStr;
 use std::string::FromUtf8Error;
+
+use scraper::Html;
 use thiserror::Error;
 use url::Url;
 
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 use crate::html::{find_link, find_meta_tag, first_inner_html};
-use crate::og::{find_og_tag, OpenGraphTag};
-use crate::schema::{find_schema_tag, SchemaMetaTag};
-use crate::twitter::{find_twitter_tag, TwitterMetaTag};
+use crate::providers::og::{find_og_tag, OpenGraphTag};
+use crate::providers::schema::{find_schema_tag, SchemaMetaTag};
+use crate::providers::twitter::{find_twitter_tag, TwitterMetaTag};
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -15,7 +19,9 @@ pub enum Error {
     InvalidUtf8(FromUtf8Error),
 }
 
+/// Represents a link preview, which contains metadata about a web page
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct LinkPreview {
     pub title: Option<String>,
     pub description: Option<String>,
@@ -271,7 +277,7 @@ mod tests {
     fn finds_first_image_url() {
         let html = html_from_bytes(FULL_FEATURED_HTML).unwrap();
         let image_url: Option<String> =
-            LinkPreview::find_first_image_url(&html).and_then(|url| Some(url.to_string()));
+            LinkPreview::find_first_image_url(&html).map(|url| url.to_string());
 
         assert_eq!(
             image_url.unwrap(),
@@ -282,7 +288,7 @@ mod tests {
     #[test]
     fn finds_first_domain() {
         let html = html_from_bytes(FULL_FEATURED_HTML).unwrap();
-        let domain = LinkPreview::find_first_domain(&html).and_then(|url| Some(url.to_string()));
+        let domain = LinkPreview::find_first_domain(&html).map(|url| url.to_string());
 
         assert_eq!(domain.unwrap(), "en.wikipedia.com");
     }
