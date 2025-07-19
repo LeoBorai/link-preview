@@ -77,45 +77,45 @@ pub fn find_og_tag(html: &Html, tag: OpenGraphTag) -> Option<String> {
 #[cfg(test)]
 mod tests {
     use crate::html_from_bytes;
-    use crate::tests::OG_COMPILANT_HTML;
+    use crate::tests::OG_COMPLIANT_HTML;
 
     use super::{find_og_tag, OpenGraphTag};
 
     #[test]
-    fn retrieves_title_from_og_compilant_html() {
-        let html = html_from_bytes(OG_COMPILANT_HTML).unwrap();
+    fn retrieves_title_from_og_compliant_html() {
+        let html = html_from_bytes(OG_COMPLIANT_HTML).unwrap();
         let title = find_og_tag(&html, OpenGraphTag::Title).unwrap();
 
         assert_eq!(title, "SEO Strategies for a better web");
     }
 
     #[test]
-    fn retrieves_description_from_og_compilant_html() {
-        let html = html_from_bytes(OG_COMPILANT_HTML).unwrap();
+    fn retrieves_description_from_og_compliant_html() {
+        let html = html_from_bytes(OG_COMPLIANT_HTML).unwrap();
         let description = find_og_tag(&html, OpenGraphTag::Description).unwrap();
 
         assert_eq!(description, "John Appleseed tells you his secrets on SEO for a better web experience by taking advantage of OpenGraph\'s Tags!");
     }
 
     #[test]
-    fn retrieves_url_from_og_compilant_html() {
-        let html = html_from_bytes(OG_COMPILANT_HTML).unwrap();
+    fn retrieves_url_from_og_compliant_html() {
+        let html = html_from_bytes(OG_COMPLIANT_HTML).unwrap();
         let url = find_og_tag(&html, OpenGraphTag::Url).unwrap();
 
         assert_eq!(url, "https://abetterweb.com");
     }
 
     #[test]
-    fn retrieves_locale_from_og_compilant_html() {
-        let html = html_from_bytes(OG_COMPILANT_HTML).unwrap();
+    fn retrieves_locale_from_og_compliant_html() {
+        let html = html_from_bytes(OG_COMPLIANT_HTML).unwrap();
         let locale = find_og_tag(&html, OpenGraphTag::Locale).unwrap();
 
         assert_eq!(locale, "en_US");
     }
 
     #[test]
-    fn retrieves_image_from_og_compilant_html() {
-        let html = html_from_bytes(OG_COMPILANT_HTML).unwrap();
+    fn retrieves_image_from_og_compliant_html() {
+        let html = html_from_bytes(OG_COMPLIANT_HTML).unwrap();
         let image = find_og_tag(&html, OpenGraphTag::Image).unwrap();
 
         assert_eq!(
@@ -125,32 +125,32 @@ mod tests {
     }
 
     #[test]
-    fn retrieves_type_from_og_compilant_html() {
-        let html = html_from_bytes(OG_COMPILANT_HTML).unwrap();
+    fn retrieves_type_from_og_compliant_html() {
+        let html = html_from_bytes(OG_COMPLIANT_HTML).unwrap();
         let r#type = find_og_tag(&html, OpenGraphTag::Type).unwrap();
 
         assert_eq!(r#type, "website");
     }
 
     #[test]
-    fn retrieves_image_height_from_og_compilant_html() {
-        let html = html_from_bytes(OG_COMPILANT_HTML).unwrap();
+    fn retrieves_image_height_from_og_compliant_html() {
+        let html = html_from_bytes(OG_COMPLIANT_HTML).unwrap();
         let height = find_og_tag(&html, OpenGraphTag::ImageHeight).unwrap();
 
         assert_eq!(height, "600");
     }
 
     #[test]
-    fn retrieves_image_width_from_og_compilant_html() {
-        let html = html_from_bytes(OG_COMPILANT_HTML).unwrap();
+    fn retrieves_image_width_from_og_compliant_html() {
+        let html = html_from_bytes(OG_COMPLIANT_HTML).unwrap();
         let width = find_og_tag(&html, OpenGraphTag::ImageWidth).unwrap();
 
         assert_eq!(width, "1200");
     }
 
     #[test]
-    fn retrieves_site_name_from_og_compilant_html() {
-        let html = html_from_bytes(OG_COMPILANT_HTML).unwrap();
+    fn retrieves_site_name_from_og_compliant_html() {
+        let html = html_from_bytes(OG_COMPLIANT_HTML).unwrap();
         let site_name = find_og_tag(&html, OpenGraphTag::SiteName).unwrap();
 
         assert_eq!(site_name, "TechPro");

@@ -1,7 +1,7 @@
 [package]
 name = "link-preview"
 version = "0.1.1"
-authors = ["Esteban Borai <estebanborai@gmail.com>"]
+authors = ["Leo Borai <estebanborai@gmail.com>"]
 edition = "2021"
 description = "Retrieve website metadata such as title, description, preview image, author and more from OpenGraph, Google, Schema.org and Twitter compliant sites"
 keywords = ["link", "schema-org", "open-graph", "website", "metadata"]
@@ -9,16 +9,30 @@ license = "MIT OR Apache-2.0"
 readme = "README.md"
 categories = ["web-programming"]
 
+[features]
+blocking = ["reqwest/blocking"]
+fetch = ["dep:reqwest"]
+serde = ["dep:serde", "url/serde"]
+stream = ["dep:futures-util", "reqwest/stream"]
+
 [dependencies]
-regex = "1.10.2"
-reqwest = { version = "0.11.20", optional = true }
-scraper = "0.17.1"
-thiserror = "1.0.50"
-url = "2.4.1"
+futures-util = { version = "0.3.31", optional = true, default-features = false }
+regex = { version = "1.11", default-features = false }
+scraper = "0.23"
+thiserror = "2.0"
+url = "2.5"
+
+[dependencies.reqwest]
+default-features = false
+optional = true
+features = ["rustls-tls"]
+version = "0.12"
+
+[dependencies.serde]
+default-features = false
+features = ["derive"]
+optional = true
+version = "1.0"
 
 [dev-dependencies]
-tokio = { version = "1.31.0", features = ["rt", "macros"] }
-
-[features]
-# Provide fetch capabilities
-fetch = ["reqwest"]
+tokio = { version = "1", default-features = false, features = ["rt", "macros"] }

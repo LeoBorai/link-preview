@@ -1,7 +1,14 @@
+use std::string::FromUtf8Error;
+
 use reqwest::get;
 use scraper::Html;
-use std::string::FromUtf8Error;
 use thiserror::Error;
+
+#[cfg(feature = "blocking")]
+use reqwest::blocking::get as blocking_get;
+
+#[cfg(feature = "stream")]
+use futures_util::TryStreamExt;
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -28,21 +35,34 @@ pub async fn fetch(url: &str) -> Result<Html, Error> {
     Ok(Html::parse_document(&html))
 }
 
+#[cfg(feature = "blocking")]
+pub fn fetch_blocking(url: &str) -> Result<Html, Error> {
+    let resp = blocking_get(url).map_err(|err| Error::FetchFailed(url.to_string(), err))?;
+    let html = resp
+        .text()
+        .map_err(|err| Error::ParseError(url.to_string(), err))?;
+
+    Ok(Html::parse_document(&html))
+}
+
 /// Fetches the provided URL and retrieves an instance of `LinkPreview`
+#[cfg(feature = "stream")]
 pub async fn fetch_partially(url: &str) -> Result<Html, Error> {
     fetch_with_limit(url, 10).await
 }
 
 /// Fetches the provided URL and retrieves an instance of `LinkPreview`
+#[cfg(feature = "stream")]
 pub async fn fetch_with_limit(url: &str, limit: usize) -> Result<Html, Error> {
     let mut laps = 0_usize;
     let mut resp = get(url)
         .await
-        .map_err(|err| Error::FetchFailed(url.to_string(), err))?;
+        .map_err(|err| Error::FetchFailed(url.to_string(), err))?
+        .bytes_stream();
     let mut bytes: Vec<u8> = Vec::new();
 
     while let Some(chunk) = resp
-        .chunk()
+        .try_next()
         .await
         .map_err(|err| Error::StreamError(url.to_string(), err))?
     {

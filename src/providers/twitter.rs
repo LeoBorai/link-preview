@@ -48,13 +48,13 @@ pub fn find_twitter_tag(html: &Html, tag: TwitterMetaTag) -> Option<String> {
 #[cfg(test)]
 mod tests {
     use crate::html_from_bytes;
-    use crate::tests::TWITTER_COMPILANT_HTML;
+    use crate::tests::TWITTER_COMPLIANT_HTML;
 
     use super::{find_twitter_tag, TwitterMetaTag};
 
     #[test]
     fn retrieves_card() {
-        let html = html_from_bytes(TWITTER_COMPILANT_HTML).unwrap();
+        let html = html_from_bytes(TWITTER_COMPLIANT_HTML).unwrap();
         let value = find_twitter_tag(&html, TwitterMetaTag::Card).unwrap();
 
         assert_eq!(value, "summary_large_image");
@@ -62,7 +62,7 @@ mod tests {
 
     #[test]
     fn retrieves_title() {
-        let html = html_from_bytes(TWITTER_COMPILANT_HTML).unwrap();
+        let html = html_from_bytes(TWITTER_COMPLIANT_HTML).unwrap();
         let value = find_twitter_tag(&html, TwitterMetaTag::Title).unwrap();
 
         assert_eq!(value, "SEO Strategies for a better web");
@@ -70,7 +70,7 @@ mod tests {
 
     #[test]
     fn retrieves_image() {
-        let html = html_from_bytes(TWITTER_COMPILANT_HTML).unwrap();
+        let html = html_from_bytes(TWITTER_COMPLIANT_HTML).unwrap();
         let value = find_twitter_tag(&html, TwitterMetaTag::Image).unwrap();
 
         assert_eq!(value, "https://linktoyourimage");
@@ -78,7 +78,7 @@ mod tests {
 
     #[test]
     fn retrieves_description() {
-        let html = html_from_bytes(TWITTER_COMPILANT_HTML).unwrap();
+        let html = html_from_bytes(TWITTER_COMPLIANT_HTML).unwrap();
         let value = find_twitter_tag(&html, TwitterMetaTag::Description).unwrap();
 
         assert_eq!(value, "John Appleseed tells you his secrets on SEO for a better web experience by taking advantage of OpenGraph's Tags!");
@@ -86,7 +86,7 @@ mod tests {
 
     #[test]
     fn retrieves_tweet_site_name() {
-        let html = html_from_bytes(TWITTER_COMPILANT_HTML).unwrap();
+        let html = html_from_bytes(TWITTER_COMPLIANT_HTML).unwrap();
         let value = find_twitter_tag(&html, TwitterMetaTag::Site).unwrap();
 
         assert_eq!(value, "@nytimes");
@@ -94,7 +94,7 @@ mod tests {
 
     #[test]
     fn retrieves_tweet_creator_username() {
-        let html = html_from_bytes(TWITTER_COMPILANT_HTML).unwrap();
+        let html = html_from_bytes(TWITTER_COMPLIANT_HTML).unwrap();
         let value = find_twitter_tag(&html, TwitterMetaTag::Creator).unwrap();
 
         assert_eq!(value, "@EstebanBorai");
