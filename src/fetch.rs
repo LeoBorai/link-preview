@@ -22,7 +22,7 @@ pub enum Error {
     InvalidUtf8(String, FromUtf8Error),
 }
 
-/// Fetches the provided URL and retrieves an instance of `LinkPreview`
+/// Fetches the provided URL and retrieves an instance of `Html`
 pub async fn fetch(url: &str) -> Result<Html, Error> {
     let resp = get(url)
         .await

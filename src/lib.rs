@@ -1,5 +1,6 @@
 pub mod html;
 pub mod preview;
+pub mod profiles;
 pub mod providers;
 
 pub use preview::{html_from_bytes, LinkPreview};
@@ -13,8 +14,9 @@ mod tests {
     pub const OG_COMPLIANT_HTML: &[u8] = include_bytes!("../html/og_compliant.html");
     pub const SCHEMA_COMPLIANT_HTML: &[u8] = include_bytes!("../html/schema_compliant.html");
     pub const TWITTER_COMPLIANT_HTML: &[u8] = include_bytes!("../html/twitter_compliant.html");
+    pub const YOUTUBE_VIDEO_HTML: &[u8] = include_bytes!("../html/youtube_sample.html");
 
     #[cfg(feature = "fetch")]
     pub const REMOTE_FULL_FEATURED_HTML: &str =
-        "https://raw.githubusercontent.com/EstebanBorai/link-preview/main/html/full_featured.html";
+        "https://raw.githubusercontent.com/LeoBorai/link-preview/main/html/full_featured.html";
 }
