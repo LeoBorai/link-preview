@@ -18,7 +18,7 @@ stream = ["dep:futures-util", "reqwest/stream"]
 [dependencies]
 futures-util = { version = "0.3.31", optional = true, default-features = false }
 regex = { version = "1.11", default-features = false }
-scraper = "0.23"
+scraper = "0.24"
 thiserror = "2.0"
 url = "2.5"
 
